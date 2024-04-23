@@ -8,7 +8,7 @@ public class Cadastrar {
 	    String telefone;
 	    String dataNascimento;
 	    int pontuacaoAcumulada;
-	    
+	    String Apelido;
 	    boolean telefoneExistente;
 	    
 	    System.out.println("Digite o nome do atleta:");
@@ -32,7 +32,12 @@ public class Cadastrar {
 	            System.out.println("Atleta com o mesmo telefone já cadastrado. Por favor, digite outro número de telefone.");
 	        }
 	    } while (telefoneExistente);
-	    
+	    System.out.println("Digite o apelido do atleta:");
+        apelido = teclado.nextLine();
+        if (apelido==null) {
+        	String[] partesNome = nome.split(" ");
+    		Apelido = partesNome[0];
+        }
 	    System.out.println("Digite a data de nascimento do atleta:");
 	    dataNascimento = teclado.nextLine();
 	    
