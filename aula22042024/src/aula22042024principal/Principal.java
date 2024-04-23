@@ -7,10 +7,9 @@ import java.util.ArrayList;
 public class Principal {
     
     private static List<Atleta> listaAtletas = new ArrayList<>();
+    Scanner teclado = new Scanner(System.in);
     
     public static void main(String[] args) {
-        
-        Scanner teclado = new Scanner(System.in);
         
         try {
         System.out.println("-----MENU-----");
@@ -56,8 +55,47 @@ public class Principal {
     }
     
     public static void Find(){
-    	System.out.println("Digite o nome/apelido do atleta que procura: ");
-    	String procurado = teclado.nextLine();
-    	
+    	if (listaAtletas.isEmpty()) {
+            System.out.println("Não há atletas cadastrados.");
+        } else {
+        	System.out.println("Digite o nome/apelido do atleta que procura: ");
+        	String procurado = teclado.nextLine();
+        	for (Atleta atleta : listaAtletas) {
+        		if (procurado == atleta.Nome || procurado == atleta.Apelido) {
+        			System.out.println(atleta.Nome +"conhecido como: " +atleta.Apelido + " | Telefone: " + atleta.Fone + " | Pontuação total: " + atleta.pontuacaoAcumulada);
+        		}
+        	}
+        }
+    	}
+
+    public static void Remover() {
+        if (listaAtletas.isEmpty()) {
+            System.out.println("Não há atletas cadastrados.");
+        } else {
+            
+            System.out.println("Digite o NOME COMPLETO do atleta que deseja remover: ");
+            String procurado = teclado.nextLine();
+            
+            boolean encontrado = false;
+            for (Atleta atleta : listaAtletas) {
+                if (procurado.equals(atleta.getNome()) || procurado.equals(atleta.getApelido())) {
+                    System.out.println("Deseja excluir: " + atleta.getNome() + " conhecido como: " + atleta.getApelido() + "? (1-sim, 2-não)");
+                    int opcaoE = teclado.nextInt();
+                    if (opcaoE == 1) {
+                        listaAtletas.remove(atleta);
+                        System.out.println("Atleta removido com sucesso.");
+                    } else {
+                        System.out.println("Operação cancelada.");
+                    }
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("Atleta não encontrado.");
+            }
+        }
     }
+
+
 }
