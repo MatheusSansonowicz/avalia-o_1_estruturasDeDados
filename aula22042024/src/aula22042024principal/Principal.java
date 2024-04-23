@@ -55,6 +55,9 @@ public class Principal {
         }
     }
     
-    
-
+    public static void Find(){
+    	System.out.println("Digite o nome/apelido do atleta que procura: ");
+    	String procurado = teclado.nextLine();
+    	
+    }
 }
