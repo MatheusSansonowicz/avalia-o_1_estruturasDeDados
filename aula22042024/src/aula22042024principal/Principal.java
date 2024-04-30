@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Principal {
     
     private static List<Atleta> listaAtletas = new ArrayList<>();
-    Scanner teclado = new Scanner(System.in);
+    static Scanner teclado = new Scanner(System.in);
     
     public static void main(String[] args) {
         
@@ -27,6 +27,7 @@ public class Principal {
                 break;
             case 2: 
                 Cadastrar();
+                
                 break;
             case 3:
                 Find();
@@ -37,21 +38,78 @@ public class Principal {
             default:
             	 throw new NumberFormatException();
         }
-        } catch (numberFormatException e) {
+        } catch (NumberFormatException e) {
         	System.out.println("Digite uma opcao válida!");
         }
     }
   
 
-    public static void Listar() {
+    public static void Cadastrar() {
+    	
+    	String nome;
+    	String telefone;
+    	String dataNascimento;
+    	String Apelido;
+    	int pontuacaoAcumulada;
+    	
+    	boolean telefoneExistente;
+    	
+    	System.out.println("Digite o nome do atleta:");
+        nome = teclado.nextLine();
+            
+    	    do {
+    	        System.out.println("Digite o telefone do atleta:");
+    	        telefone = teclado.nextLine();
+    	        
+    	        telefoneExistente = false;
+    	        for (Atleta atleta : listaAtletas) {
+    	            if (atleta.getTelefone().equals(telefone)) {
+    	                telefoneExistente = true;
+    	                break;
+    	            }
+    	        }
+    	        
+    	        if (telefoneExistente) {
+    	            System.out.println("Atleta com o mesmo telefone já cadastrado. Por favor, digite outro número de telefone.");
+    	        }
+    	    } while (telefoneExistente);
+    	    System.out.println("Digite o apelido do atleta:");
+    	    Apelido = teclado.nextLine();
+    	    if (Apelido == null || Apelido.isEmpty()) {
+    	        String[] partesNome = nome.split(" ");
+    	        Apelido = partesNome[0];
+    	    }
+
+    	    System.out.println("Digite a data de nascimento do atleta:");
+    	    dataNascimento = teclado.nextLine();
+    	    
+    	    System.out.println("Digite a pontuação acumulada do atleta:");
+    	    pontuacaoAcumulada = teclado.nextInt();
+    	    
+    	    Atleta novoAtleta = new Atleta();
+    	    novoAtleta.setNome(nome);
+    	    novoAtleta.setTelefone(telefone);
+    	    novoAtleta.setDataNascimento(dataNascimento);
+    	    novoAtleta.setPontuacaoAcumulada(pontuacaoAcumulada);
+    	    novoAtleta.setApelido(Apelido);
+    	    listaAtletas.add(novoAtleta);
+    	    
+    	    System.out.println("Atleta cadastrado com sucesso!");
+    	    
+    	}
+    
+	public static void Listar() {
         if (listaAtletas.isEmpty()) {
             System.out.println("Não há atletas cadastrados.");
+            return;
         } else {
             System.out.println("Lista de Atletas:");
             for (Atleta atleta : listaAtletas) {
-                System.out.println(atleta.Nome + " Telefone: " + atleta.Fone + " Pontuação total: " + atleta.pontuacaoAcumulada); 
+            	atleta.toString();
+            	return;
             }
         }
+        
     }
     
     public static void Find(){
@@ -61,8 +119,8 @@ public class Principal {
         	System.out.println("Digite o nome/apelido do atleta que procura: ");
         	String procurado = teclado.nextLine();
         	for (Atleta atleta : listaAtletas) {
-        		if (procurado == atleta.Nome || procurado == atleta.Apelido) {
-        			System.out.println(atleta.Nome +"conhecido como: " +atleta.Apelido + " | Telefone: " + atleta.Fone + " | Pontuação total: " + atleta.pontuacaoAcumulada);
+        		if (procurado == atleta.getNome() || procurado == atleta.getApelido()) {
+        			atleta.toString();
         		}
         	}
         }
@@ -96,6 +154,4 @@ public class Principal {
             }
         }
     }
-
-
 }
