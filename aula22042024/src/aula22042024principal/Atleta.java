@@ -1,54 +1,73 @@
 package aula22042024principal;
 
-import java.util.Scanner;
+import java.util.Objects;
 
-public class Cadastrar {
-	public static void Cadastrar(Scanner teclado) {
-	    String nome;
-	    String telefone;
-	    String dataNascimento;
-	    int pontuacaoAcumulada;
-	    String Apelido;
-	    boolean telefoneExistente;
+public class Atleta {
+	    private String nome;
+	    private String telefone;
+	    private String dataNascimento;
+	    private int pontuacaoAcumulada;
+	    private String Apelido;
 	    
-	    System.out.println("Digite o nome do atleta:");
-        nome = teclado.nextLine();
-        
-	    do {
-	        
-	        
-	        System.out.println("Digite o telefone do atleta:");
-	        telefone = teclado.nextLine();
-	        
-	        telefoneExistente = false;
-	        for (Atleta atleta : listaAtletas) {
-	            if (atleta.Fone.equals(telefone)) {
-	                telefoneExistente = true;
-	                break;
-	            }
+	    public Atleta(String nome, String telefone, String dataNascimento, int pontuacaoAcumulada, String Apelido) {
+			this.Apelido=Apelido;
+			this.nome =nome;
+			this.dataNascimento = dataNascimento;
+			this.telefone = telefone;
+			this.pontuacaoAcumulada = pontuacaoAcumulada;
+		}
+	    
+	    public Atleta() {
+	    }
+	    
+	    public String getApelido() {
+			return Apelido;
+		}
+	    public String getDataNascimento() {
+			return dataNascimento;
+		}
+	    public String getNome() {
+			return nome;
+		}
+	    public int getPontuacaoAcumulada() {
+			return pontuacaoAcumulada;
+		}
+	    public String getTelefone() {
+			return telefone;
+		}
+	    
+	    public void setApelido(String apelido) {
+			Apelido = apelido;
+		}
+	    public void setDataNascimento(String dataNascimento) {
+			this.dataNascimento = dataNascimento;
+		}
+	    public void setNome(String nome) {
+			this.nome = nome;
+		}
+	    public void setPontuacaoAcumulada(int pontuacaoAcumulada) {
+			this.pontuacaoAcumulada = pontuacaoAcumulada;
+		}
+	    public void setTelefone(String telefone) {
+			this.telefone = telefone;
+		}
+	    
+	    @Override
+	    public int hashCode() {
+	        return Objects.hash(telefone);
+	    }
+	    public boolean equals(Object obj) {
+	        if (this == obj) {
+	            return true;
 	        }
-	        
-	        if (telefoneExistente) {
-	            System.out.println("Atleta com o mesmo telefone já cadastrado. Por favor, digite outro número de telefone.");
+	        if (obj == null || getClass() != obj.getClass()) {
+	            return false;
 	        }
-	    } while (telefoneExistente);
-	    System.out.println("Digite o apelido do atleta:");
-        apelido = teclado.nextLine();
-        if (apelido==null) {
-        	String[] partesNome = nome.split(" ");
-    		Apelido = partesNome[0];
-        }
-	    System.out.println("Digite a data de nascimento do atleta:");
-	    dataNascimento = teclado.nextLine();
+	        Atleta other = (Atleta) obj;
+	        return Objects.equals(telefone, other.telefone);
+	    }
+	    public String toString() {
+	        return "Atleta:" +"nome='" + nome +", telefone='" + telefone +", dataNascimento='" + dataNascimento +", pontuacaoAcumulada=" + pontuacaoAcumulada +", apelido='" + Apelido + '\'';
+	    }
 	    
-	    System.out.println("Digite a pontuação acumulada do atleta:");
-	    pontuacaoAcumulada = teclado.nextInt();
-	    
-	    Atleta novoAtleta = new Atleta(telefone, nome, dataNascimento, pontuacaoAcumulada);
-	    listaAtletas.add(novoAtleta);
-	    
-	    System.out.println("Atleta cadastrado com sucesso!");
-	}
-
-
 }
